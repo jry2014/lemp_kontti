@@ -5,10 +5,10 @@ import mysql.connector
 #flask app instance update joo
 app = Flask(__name__)
 
-DB_HOST = os.getenv('lemp')
-DB_USER = os.getenv('ubuntu')
-DB_PASSWORD = os.getenv('1234')
-DB_NAME = os.getenv('appdb')
+DB_HOST = 'lemp'
+DB_USER = 'ubuntu'
+DB_PASSWORD = '1234'
+DB_NAME = 'appdb'
 
 @app.get('/api/health')
 def health():
