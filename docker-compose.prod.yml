@@ -19,7 +19,7 @@ services:
       retries: 20
 
   backend:
-    image: ${DOCKERHUB_USERNAME}/lemp-backend:latest
+    image: jry2014/lemp-backend:latest
     environment:
       DB_HOST: db
       DB_USER: ubuntu
@@ -33,7 +33,7 @@ services:
         condition: service_healthy
 
   frontend:
-    image: ${DOCKERHUB_USERNAME}/lemp-frontend:latest
+    image: jry2014/lemp-frontend:latest
     networks:
       - backend_frontend_net
     depends_on:
