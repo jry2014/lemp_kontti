@@ -3,7 +3,10 @@ services:
   db:
     image: mysql:8.4
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: lemp
+      MYSQL_USER: ubuntu
+      MYSQL_PASSWORD: 1234
     volumes:
       - db_data:/var/lib/mysql
       - ./db/init:/docker-entrypoint-initdb.d:ro
@@ -18,10 +21,10 @@ services:
   backend:
     image: ${DOCKERHUB_USERNAME}/lemp-backend:latest
     environment:
-      DB_HOST: ${DB_HOST}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${DB_NAME}
+      DB_HOST: db
+      DB_USER: ubuntu
+      DB_PASSWORD: 1234
+      DB_NAME: lemp
 
     networks:
       - backend_frontend_net
