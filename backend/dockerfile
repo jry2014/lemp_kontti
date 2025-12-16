@@ -1,16 +1,19 @@
-FROM python:3.11-slim
+FROM python:3.11-slim AS base
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# Asenna riippuvuudet
+# Kopioi requirements.txt
 COPY requirements.txt .
+
+# Asenna riippuvuudet
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Kopioi sovellus
+# Kopioi kaikki sovellustiedostot
 COPY . .
 
-# Luo ei-root käyttäjä
-RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
-USER appuser
+EXPOSE 8000
 
-EXPOSE 5000
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "app:app"]
+CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8000", "app:app"]
